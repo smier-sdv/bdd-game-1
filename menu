@@ -1,0 +1,21 @@
+------------------------
+     JEU DE COMBAT
+------------------------
+1. Démarrer une nouvelle partie
+2. Voir les 3 meilleurs scores
+3. Quitter
+
+
+tâches terminées :
+- création d'équipe
+- gestion des combats
+
+maquant :
+- nom du joueur
+- enregistrement des scores
+- mise en place de la base de données
+
+la base de données doit contenir :
+- liste de tous les personnages
+- liste de tous les ennemis
+- liste des meilleurs scores
