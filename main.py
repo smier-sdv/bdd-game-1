@@ -159,8 +159,8 @@ def terminer_combat(username, score):
 def main():
     # Afficher le menu
     afficher_menu()
-    choice=int(input())
-    if choice not in (1, 2):
+    choice=input()
+    if choice not in ('1', '2'):
         return
     #elif choice == 2:
 
