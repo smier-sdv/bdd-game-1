@@ -22,7 +22,6 @@ def afficher_menu():
 
 
 
-
 def creer_equipe():    
     personnages = {
         "Guerrier" : {"ATK": 15, "DEF": 10, "PV": 100},
@@ -41,6 +40,7 @@ def creer_equipe():
     print("Voici les personnages disponibles:")
     for nom, stats in personnages.items():
         print(nom,":",stats)
+        sleep(0.1)
     print("Choisissez-en 3")
 
     # Création de l'équipe
@@ -75,15 +75,18 @@ def tour(equipe, index, life_state, ennemi):
             print(membre, " attaque ", ennemi[0], " de ", degats, " points ")
             ennemi[1]["PV"] -= degats
             print("Le", ennemi[0], "a", ennemi[1]["PV"], "PVs !")
+            sleep(0.1)
     # L'ennemi attaque un membre random avec atk monstre - def perso
     victime = random.choice(index)
     print(ennemi[0], "attaque ", victime, "!")
     equipe[victime]["PV"] -= ennemi[1]["ATK"] - equipe[victime]["DEF"]
+    sleep(0.1)
 
     if equipe[victime]["PV"] < 1:
         print(victime, "est vaincu !")
         life_state -= 1
         del equipe[victime]
+        sleep(0.1)
         
         if len(index) == 1:
             index.pop(0)
@@ -119,7 +122,11 @@ def lancer_vagues(equipe):
     # vague avec une condition de vie de l'équipe genre 
     while life_state > 0:
         ennemi = list(random.choice(list(enemy_list.items())))[:]       # On choisit un ennemi random de la liste
+        print("")
+        print("-" * 75)
         print("Début de la vague ", i+1, ": ", ennemi)     # On imprime l'ennemi et ses stats sous forme de liste 
+        print("-" * 75)
+        print("")
 
         sleep(1)
         # Une vague c'est pour un ennemi, un tour c'est un round de taper l'ennemi et après c'est lui qui te tape
@@ -135,10 +142,16 @@ def lancer_vagues(equipe):
         i+=1    # Compteur de vagues, augmente à chaque fin de vague pour la confirmer
         if life_state > 0:
             print("Victoire !") 
+            sleep(0.3)
     
     # sortie du while, life_state à 0
-    print("Vous avez tenu pendant", i, "vague(s) !")
+    return i
 
+
+
+def terminer_combat(username, score):
+    print("Félicitations,", username, "! Vous avez tenu pendant", score, "vague(s) !")
+    # envoyer le score et le nom associé à la db
 
 
 
@@ -150,16 +163,19 @@ def main():
     if choice not in (1, 2):
         return
     #elif choice == 2:
+
+    username=input("Entrez votre nom d'utilisateur : ")
     # Créer mon équipe
+    
     equipe = creer_equipe()
     sleep(1)
 
     # Démarrer les vagues de combat
     print("Lancement du combat !")
-    lancer_vagues(equipe)
+    score=lancer_vagues(equipe)
 
     # Terminer le combat et stocker le score
-    #terminer_combat()
+    terminer_combat(username, score)
 
 
 
